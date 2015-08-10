@@ -8,6 +8,8 @@ import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
@@ -30,6 +32,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class FadFlicksFragment extends Fragment
         implements FlickDataFetchAsyncTask.OnAsyncTaskCompleteListener {
@@ -115,11 +118,14 @@ public class FadFlicksFragment extends Fragment
         intent.setComponent(new ComponentName(
                 DATA_SETTINGS_PKG,
                 DATA_SETTINGS_CLASS));
-        startActivity(intent);
+        if (isIntentSafe(intent))
+            startActivity(intent);
     }
 
     private void launchWifiSettings() {
-        startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
+        Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
+        if (isIntentSafe(intent))
+            startActivity(intent);
     }
 
     private void alertCancelled() {
@@ -127,6 +133,13 @@ public class FadFlicksFragment extends Fragment
         if (mAlert != null && mAlert.isShowing()) {
             mAlert.dismiss();
         }
+    }
+
+    private boolean isIntentSafe(Intent intent){
+        //From developer.android.com
+        PackageManager packageManager = mContext.getPackageManager();
+        List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+        return activities.size() > 0;
     }
 
     @Override
