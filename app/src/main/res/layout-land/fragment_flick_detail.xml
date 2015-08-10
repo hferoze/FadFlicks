@@ -9,8 +9,7 @@
         android:id="@+id/detailview_backdropImageView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitXY"
-        />
+        android:scaleType="fitXY"/>
 
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent" android:layout_height="match_parent"
@@ -22,17 +21,14 @@
 
     <TextView
         android:id="@+id/detailview_flickTitleTextView"
-        style="@style/LandscapeTitleTextStyle"
-
-        />
+        style="@style/LandscapeTitleTextStyle"/>
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/detail_posterRelativeLayout"
         android:layout_marginTop="30dp"
-        android:layout_below="@+id/detailview_flickTitleTextView"
-       >
+        android:layout_below="@+id/detailview_flickTitleTextView">
         <ProgressBar
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -41,8 +37,7 @@
         <ImageView
             android:id="@+id/detailview_posterImageView"
             android:layout_width="@dimen/detailview_poster_width_land"
-            android:layout_height="@dimen/detailview_poster_height_land"
-            />
+            android:layout_height="@dimen/detailview_poster_height_land"/>
     </RelativeLayout>
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -103,8 +98,7 @@
                 android:textStyle="bold|italic"
                 android:layout_marginLeft="4dp"
                 android:gravity="center_vertical"
-                android:layout_marginBottom="4dp"
-                />
+                android:layout_marginBottom="4dp"/>
 
             <TextView
                 android:id="@+id/detailview_genreTextView"
@@ -131,8 +125,7 @@
         android:orientation="vertical"
         android:layout_centerVertical="true"
         android:layout_below="@+id/detail_posterRelativeLayout"
-        android:background="@color/activity_background_color_transparent"
-        >
+        android:background="@color/activity_background_color_transparent">
         <TextView
             android:id="@+id/detailview_flickOverview"
             android:text="summary"
