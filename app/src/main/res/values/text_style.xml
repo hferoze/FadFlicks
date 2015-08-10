@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="NormalTextStyle"
-        parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+    <style name="NormalTextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textSize">14sp</item>
         <item name="android:shadowColor">@color/text_color_dark</item>
         <item name="android:shadowDx">@integer/text_shadow_dx</item>
@@ -13,8 +12,7 @@
         <item name="android:layout_height">wrap_content</item>
     </style>
 
-    <style name="PortraitTitleTextStyle"
-        parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+    <style name="PortraitTitleTextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textSize">35sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:text">"@string/detail_title"</item>
@@ -30,8 +28,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="LandscapeTitleTextStyle"
-        parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+    <style name="LandscapeTitleTextStyle" parent="@android:style/TextAppearance.Widget.IconMenu.Item">
         <item name="android:textSize">50sp</item>
         <item name="android:textStyle">normal</item>
         <item name="android:text">"@string/detail_title"</item>

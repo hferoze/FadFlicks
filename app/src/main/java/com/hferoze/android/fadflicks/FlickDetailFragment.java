@@ -76,7 +76,7 @@ public class FlickDetailFragment extends Fragment {
         Intent in = getActivity().getIntent();
         if (in != null && in.hasExtra(AppConstants.TITLE)) {
             Bundle info = in.getExtras();
-            if(savedInstanceState == null || !savedInstanceState.containsKey(FLICKS_QUERY_INFO_KEY)) {
+            if (savedInstanceState == null || !savedInstanceState.containsKey(FLICKS_QUERY_INFO_KEY)) {
                 mFlickDetailsList = new ArrayList<>();
                 if (mUtils.isDataAvaialable()) {
                     new GetMovieDetailsTask().execute(Integer.toString(info.getInt(AppConstants.ID)));
@@ -95,7 +95,7 @@ public class FlickDetailFragment extends Fragment {
                 setImages(posterUrl, detailPoster);
                 setImages(backdropImgUrl, detailBackdrop);
             } else if (getResources().getConfiguration().orientation
-                    == Configuration.ORIENTATION_PORTRAIT){
+                    == Configuration.ORIENTATION_PORTRAIT) {
                 setImages(posterUrl, detailPoster);
                 setImages(posterUrl, detailBackdrop);
             }
@@ -103,7 +103,7 @@ public class FlickDetailFragment extends Fragment {
             String title = info.getString(AppConstants.TITLE);
             detailTitle.setText(title);
 
-            detailReleaseDate.setText("( "+mUtils.getYear(info.getString(AppConstants.RELEASE_DATE)) + " )");
+            detailReleaseDate.setText("( " + mUtils.getYear(info.getString(AppConstants.RELEASE_DATE)) + " )");
 
             DecimalFormat newFormat = new DecimalFormat("#.#");
             float popVal = Float.valueOf(newFormat.format(info.getFloat(AppConstants.POPULARITY)));
@@ -117,7 +117,7 @@ public class FlickDetailFragment extends Fragment {
         return rootView;
     }
 
-    private String buildURI( String img_size, String img_path) {
+    private String buildURI(String img_size, String img_path) {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("image.tmdb.org")
@@ -137,7 +137,7 @@ public class FlickDetailFragment extends Fragment {
                 into(iv);
     }
 
-    private void updateFlickQueryInfo(ArrayList<FlickDetails> result){
+    private void updateFlickQueryInfo(ArrayList<FlickDetails> result) {
         FlickDetails flickQuery = mFlickDetailsList.get(0);
         mDetailRunTime.setText(flickQuery.getRuntime() + " min");
         mDdetailGenre.setText(flickQuery.getGernes());
@@ -147,7 +147,7 @@ public class FlickDetailFragment extends Fragment {
             throws JSONException {
 
         final String TMDB_GENRE = "genres";
-        final String TMDB_GENRE_NAME= "name";
+        final String TMDB_GENRE_NAME = "name";
         final String TMDB_RUNTIME = "runtime";
 
         JSONObject flickJson = new JSONObject(flicksJsonStr);
@@ -165,9 +165,9 @@ public class FlickDetailFragment extends Fragment {
         }
 
         try {
-            if (genre.length()>1)
-                genre.setLength(genre.length()-1); //removing the last "/"
-        }catch (final StringIndexOutOfBoundsException e) {
+            if (genre.length() > 1)
+                genre.setLength(genre.length() - 1); //removing the last "/"
+        } catch (final StringIndexOutOfBoundsException e) {
             Log.e(LOG_TAG, "StringIndexOutOfBoundsException: ", e);
         }
         resultList.add(new FlickDetails(flickJson.getString(TMDB_RUNTIME), genre.toString()));
@@ -176,17 +176,17 @@ public class FlickDetailFragment extends Fragment {
     }
 
     private class GetMovieDetailsTask extends AsyncTask<String, Integer, ArrayList<FlickDetails>> {
-        protected ArrayList doInBackground(String... params) {
+        protected ArrayList<FlickDetails> doInBackground(String... params) {
 
             HttpURLConnection urlConnection = null;
             BufferedReader reader = null;
 
             String flicksJsonStr = null;
             try {
-                final String URI_SCHEME="http";
+                final String URI_SCHEME = "http";
                 final String URI_AUTH = "api.themoviedb.org";
-                final String URI_APPEND_PATH1="3";
-                final String URI_APPEND_PATH2="movie";
+                final String URI_APPEND_PATH1 = "3";
+                final String URI_APPEND_PATH2 = "movie";
                 final String URI_API_KEY = "api_key";
 
                 Uri.Builder builder = new Uri.Builder();
@@ -198,7 +198,7 @@ public class FlickDetailFragment extends Fragment {
                         .appendQueryParameter(URI_API_KEY, mContext.getString(R.string.api_key))
                         .build();
                 String myUrl = builder.build().toString();
-                Log.d(LOG_TAG,"url: " + myUrl);
+                Log.d(LOG_TAG, "url: " + myUrl);
 
                 URL url = new URL(myUrl);
 
@@ -212,7 +212,7 @@ public class FlickDetailFragment extends Fragment {
                 }
                 reader = new BufferedReader(new InputStreamReader(inputStream));
 
-                StringBuffer buffer = new StringBuffer();
+                StringBuilder buffer = new StringBuilder();
                 String line;
                 while ((line = reader.readLine()) != null) {
                     buffer.append(line + "\n");
@@ -226,7 +226,7 @@ public class FlickDetailFragment extends Fragment {
             } catch (IOException e) {
                 Log.e(LOG_TAG, "Error ", e);
                 return null;
-            } finally{
+            } finally {
                 if (urlConnection != null) {
                     urlConnection.disconnect();
                 }
@@ -240,18 +240,17 @@ public class FlickDetailFragment extends Fragment {
             }
             try {
                 return getFlickDataFromJson(flicksJsonStr);
-            }
-            catch(JSONException e) {
-                Log.e(LOG_TAG,e.toString());
+            } catch (JSONException e) {
+                Log.e(LOG_TAG, e.toString());
                 e.printStackTrace();
             }
             return null;
         }
 
         protected void onPostExecute(ArrayList<FlickDetails> result) {
-            if (result!=null && result.size()>0)
-                mFlickDetailsList =result;
-                updateFlickQueryInfo(mFlickDetailsList);
+            if (result != null && result.size() > 0)
+                mFlickDetailsList = result;
+            updateFlickQueryInfo(mFlickDetailsList);
         }
     }
 }

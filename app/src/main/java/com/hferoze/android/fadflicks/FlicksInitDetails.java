@@ -12,19 +12,19 @@ public class FlicksInitDetails implements Parcelable {
     public FlicksInitDetails(int id, String background_path, String images_path,
                              String overview, String title, String release_date, float vote_avg, int vote_cnt, float popularity) {
         this.mId = id;
-        this.mImagesPaths=images_path;
-        this.mBackdropPaths=background_path;
-        this.mOverview=overview;
-        this.mTitle=title;
-        this.mReleaseDate=release_date;
-        this.mVoteAvg=vote_avg;
-        this.mVoteCount=vote_cnt;
-        this.mPopularity=popularity;
+        this.mImagesPaths = images_path;
+        this.mBackdropPaths = background_path;
+        this.mOverview = overview;
+        this.mTitle = title;
+        this.mReleaseDate = release_date;
+        this.mVoteAvg = vote_avg;
+        this.mVoteCount = vote_cnt;
+        this.mPopularity = popularity;
     }
 
     private FlicksInitDetails(Parcel in) {
         mId = in.readInt();
-        mBackdropPaths=in.readString();
+        mBackdropPaths = in.readString();
         mImagesPaths = in.readString();
         mOverview = in.readString();
         mTitle = in.readString();
@@ -34,39 +34,39 @@ public class FlicksInitDetails implements Parcelable {
         mPopularity = in.readFloat();
     }
 
-    public int getID(){
+    public int getID() {
         return mId;
     }
 
-    public String getBackgroundPath(){
+    public String getBackgroundPath() {
         return mBackdropPaths;
     }
 
-    public String getImagesPath(){
+    public String getImagesPath() {
         return mImagesPaths;
     }
 
-    public String getOverview(){
+    public String getOverview() {
         return mOverview;
     }
 
-    public String getTitle(){
+    public String getTitle() {
         return mTitle;
     }
 
-    public String getReleaseDate(){
+    public String getReleaseDate() {
         return mReleaseDate;
     }
 
-    public float getVoteAverage(){
+    public float getVoteAverage() {
         return mVoteAvg;
     }
 
-    public int getVoteCount(){
+    public int getVoteCount() {
         return mVoteCount;
     }
 
-    public float getPopularity(){
+    public float getPopularity() {
         return mPopularity;
     }
 

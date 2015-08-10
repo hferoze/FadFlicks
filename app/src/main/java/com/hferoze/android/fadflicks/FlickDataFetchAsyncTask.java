@@ -20,11 +20,10 @@ import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.ArrayList;
 
-public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayList<FlicksInitDetails>>
-{
+public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayList<FlicksInitDetails>> {
     private final String LOG_TAG = FlickDataFetchAsyncTask.class.getSimpleName();
 
-    private String mSortOrder=null;
+    private String mSortOrder = null;
     private OnAsyncTaskCompleteListener mListener;
 
     private Context mContext;
@@ -33,7 +32,7 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
         void updateGrid(ArrayList<FlicksInitDetails> flicksInitDetails);
     }
 
-    public FlickDataFetchAsyncTask (Context context, String currentSortOrder, OnAsyncTaskCompleteListener l){
+    public FlickDataFetchAsyncTask(Context context, String currentSortOrder, OnAsyncTaskCompleteListener l) {
         mContext = context;
         this.mSortOrder = currentSortOrder;
         mListener = l;
@@ -42,17 +41,17 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
     @Override
     protected void onPreExecute() {
 
-        View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
-        ProgressBar mainProgressBar = (ProgressBar)rootView.findViewById(R.id.mainProgressBar);
+        View rootView = ((Activity) mContext).getWindow().getDecorView().findViewById(android.R.id.content);
+        ProgressBar mainProgressBar = (ProgressBar) rootView.findViewById(R.id.mainProgressBar);
         mainProgressBar.setVisibility(View.VISIBLE);
     }
 
     @Override
     protected void onPostExecute(ArrayList<FlicksInitDetails> flicksInitDetails) {
-        if(flicksInitDetails != null) {
+        if (flicksInitDetails != null) {
             mListener.updateGrid(flicksInitDetails);
-            View rootView = ((Activity)mContext).getWindow().getDecorView().findViewById(android.R.id.content);
-            ProgressBar mainProgressBar = (ProgressBar)rootView.findViewById(R.id.mainProgressBar);
+            View rootView = ((Activity) mContext).getWindow().getDecorView().findViewById(android.R.id.content);
+            ProgressBar mainProgressBar = (ProgressBar) rootView.findViewById(R.id.mainProgressBar);
             mainProgressBar.setVisibility(View.GONE);
         }
     }
@@ -66,13 +65,13 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
         String flicksJsonStr = null;
         try {
 
-            final String URI_SCHEME="http";
+            final String URI_SCHEME = "http";
             final String URI_AUTH = "api.themoviedb.org";
-            final String URI_APPEND_PATH1="3";
-            final String URI_APPEND_PATH2="discover";
-            final String URI_APPEND_PATH3="movie";
-            final String URI_PRIM_REL_DATE_PARAM="primary_release_date.gte";
-            final String PRIM_REL_DATE="2012-1-1";
+            final String URI_APPEND_PATH1 = "3";
+            final String URI_APPEND_PATH2 = "discover";
+            final String URI_APPEND_PATH3 = "movie";
+            final String URI_PRIM_REL_DATE_PARAM = "primary_release_date.gte";
+            final String PRIM_REL_DATE = "2012-1-1";
             final String URI_SORT_ORDER = "sort_by";
             final String URI_API_KEY = "api_key";
 
@@ -99,7 +98,7 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
             }
             reader = new BufferedReader(new InputStreamReader(inputStream));
 
-            StringBuffer buffer = new StringBuffer();
+            StringBuilder buffer = new StringBuilder();
             String line;
             while ((line = reader.readLine()) != null) {
                 buffer.append(line + "\n");
@@ -113,7 +112,7 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
         } catch (IOException e) {
             Log.e(LOG_TAG, "Error ", e);
             return null;
-        } finally{
+        } finally {
             if (urlConnection != null) {
                 urlConnection.disconnect();
             }
@@ -127,9 +126,8 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
         }
         try {
             return getFlickDataFromJson(flicksJsonStr);
-        }
-        catch(JSONException e) {
-            Log.e(LOG_TAG,e.toString());
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, e.toString());
             e.printStackTrace();
         }
         return null;
@@ -154,7 +152,7 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
         JSONArray flicksArray = flicksJson.getJSONArray(TMDB_RESULTS);
 
         ArrayList<FlicksInitDetails> resultList = new ArrayList<>();
-        for(int i = 0; i < flicksArray.length(); i++) {
+        for (int i = 0; i < flicksArray.length(); i++) {
 
             int id;
             String title;
@@ -173,11 +171,11 @@ public class FlickDataFetchAsyncTask extends AsyncTask<String, Integer, ArrayLis
             release_date = flick.getString(TMDB_RELEASE_DATE);
             backdrop_path = flick.getString(TMDB_BACKDROP_PATH);
             poster_path = flick.getString(TMDB_POSTER_PATH);
-            popularity = (float)flick.getDouble(TMDB_POPULARITY);
-            vote_avg = (float)flick.getDouble(TMDB_VOTE_AVG);
+            popularity = (float) flick.getDouble(TMDB_POPULARITY);
+            vote_avg = (float) flick.getDouble(TMDB_VOTE_AVG);
             vote_cnt = flick.getInt(TMDB_VOTE_CNT);
 
-            resultList.add(new FlicksInitDetails(id, backdrop_path, poster_path, overview,title, release_date, vote_avg, vote_cnt, popularity));
+            resultList.add(new FlicksInitDetails(id, backdrop_path, poster_path, overview, title, release_date, vote_avg, vote_cnt, popularity));
         }
 
         return resultList;

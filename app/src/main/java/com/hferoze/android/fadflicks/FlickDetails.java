@@ -9,19 +9,19 @@ public class FlickDetails implements Parcelable {
 
     public FlickDetails(String runtime, String genres) {
         this.mRuntime = runtime;
-        this.mGenres=genres;
+        this.mGenres = genres;
     }
 
     private FlickDetails(Parcel in) {
-        mRuntime=in.readString();
+        mRuntime = in.readString();
         mGenres = in.readString();
     }
 
-    public String getRuntime(){
+    public String getRuntime() {
         return mRuntime;
     }
 
-    public String getGernes(){
+    public String getGernes() {
         return mGenres;
     }
 

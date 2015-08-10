@@ -28,26 +28,27 @@ import android.widget.GridView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import java.util.ArrayList;
 
 public class FadFlicksFragment extends Fragment
         implements FlickDataFetchAsyncTask.OnAsyncTaskCompleteListener {
 
-    private static final int DATA_STATE_CONNECTED=1;
-    private static final int DATA_STATE_DISCONNECTED=0;
-    private static final int LAUNCH_WAIT=3000;
+    private static final int DATA_STATE_CONNECTED = 1;
+    private static final int DATA_STATE_DISCONNECTED = 0;
+    private static final int LAUNCH_WAIT = 3000;
 
-    private static final String DATA_SETTINGS_PKG="com.android.settings";
-    private static final String DATA_SETTINGS_CLASS="com.android.settings.Settings$DataUsageSummaryActivity";
+    private static final String DATA_SETTINGS_PKG = "com.android.settings";
+    private static final String DATA_SETTINGS_CLASS = "com.android.settings.Settings$DataUsageSummaryActivity";
     private static final String FLICKS_DETAILS_LIST_KEY = "flicks_details";
     private static final String SORT_BY_POPULARITY = "popularity.desc";
     private static final String SORT_BY_HIGHEST_RATED = "vote_average.desc";
-    private static final String REQUEST_POSTED_KEY="launch_activity_request";
-    private static final String ALERT_CANCELLED_KEY="alert_cancelled";
+    private static final String REQUEST_POSTED_KEY = "launch_activity_request";
+    private static final String ALERT_CANCELLED_KEY = "alert_cancelled";
 
     private boolean mAlertCancelledState = false;
-    private boolean mActivityLaunchPost=false;
-    private boolean mIsDoneDownloadingData=false;
+    private boolean mActivityLaunchPost = false;
+    private boolean mIsDoneDownloadingData = false;
 
     private int data_state;
 
@@ -66,7 +67,7 @@ public class FadFlicksFragment extends Fragment
     private Context mContext;
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
         updateFlicks(mSharedPref.getString(
                 getString(R.string.pref_sort_order),
@@ -76,17 +77,16 @@ public class FadFlicksFragment extends Fragment
     private void updateFlicks(String sort_order) {
         if (mUtils.isDataAvaialable()) {
             dataState(DATA_STATE_CONNECTED);
-            mAlertCancelledState=false;
+            mAlertCancelledState = false;
             mNoDataTextView.setVisibility(View.GONE);
-            if (mAlert!=null && mAlert.isShowing())
+            if (mAlert != null && mAlert.isShowing())
                 mAlert.dismiss();
 
             if (!mIsDoneDownloadingData && mSharedPref != null) {
                 mFlickDataFetchTask = new FlickDataFetchAsyncTask(getActivity(), sort_order, this);
                 mFlickDataFetchTask.execute();
             }
-        }
-        else {
+        } else {
             if (!mAlertCancelledState) {
                 dataAlert(DATA_STATE_DISCONNECTED);
             } else {
@@ -99,31 +99,32 @@ public class FadFlicksFragment extends Fragment
     }
 
     private void dataState(int data_state) {
-        this.data_state=data_state;
+        this.data_state = data_state;
     }
 
-    private void dataAlert(int data_state)
-    {
-        if (data_state == DATA_STATE_DISCONNECTED){
-            if (mAlert!=null && !mAlert.isShowing()){
+    private void dataAlert(int data_state) {
+        if (data_state == DATA_STATE_DISCONNECTED) {
+            if (mAlert != null && !mAlert.isShowing()) {
                 mAlert.show();
             }
         }
     }
 
-    private void launchCellularDataSettings(){
+    private void launchCellularDataSettings() {
         Intent intent = new Intent();
         intent.setComponent(new ComponentName(
                 DATA_SETTINGS_PKG,
                 DATA_SETTINGS_CLASS));
         startActivity(intent);
     }
-    private void launchWifiSettings(){
+
+    private void launchWifiSettings() {
         startActivity(new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS));
     }
-    private void alertCancelled(){
-        mAlertCancelledState=true;
-        if (mAlert!=null && mAlert.isShowing()){
+
+    private void alertCancelled() {
+        mAlertCancelledState = true;
+        if (mAlert != null && mAlert.isShowing()) {
             mAlert.dismiss();
         }
     }
@@ -143,7 +144,7 @@ public class FadFlicksFragment extends Fragment
     public void onDestroy() {
         super.onDestroy();
         if (mFlickDataFetchTask.getStatus() == AsyncTask.Status.RUNNING ||
-                mFlickDataFetchTask.getStatus() == AsyncTask.Status.PENDING ) {
+                mFlickDataFetchTask.getStatus() == AsyncTask.Status.PENDING) {
             mFlickDataFetchTask.cancel(true);
         }
     }
@@ -152,7 +153,7 @@ public class FadFlicksFragment extends Fragment
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         outState.putParcelableArrayList(FLICKS_DETAILS_LIST_KEY, mFlicksInitDetails);
-        outState.putBoolean(ALERT_CANCELLED_KEY,mAlertCancelledState);
+        outState.putBoolean(ALERT_CANCELLED_KEY, mAlertCancelledState);
         outState.putBoolean(REQUEST_POSTED_KEY, mActivityLaunchPost);
     }
 
@@ -192,11 +193,11 @@ public class FadFlicksFragment extends Fragment
         mFlickDataFetchTask = new FlickDataFetchAsyncTask(getActivity(), null, this);
         mSplashView = (RelativeLayout) rootView.findViewById(R.id.splash_view);
 
-        if(savedInstanceState == null
+        if (savedInstanceState == null
                 || !savedInstanceState.containsKey(FLICKS_DETAILS_LIST_KEY)
                 || !savedInstanceState.containsKey(REQUEST_POSTED_KEY)) {
             mFlicksInitDetails = new ArrayList<>();
-            mActivityLaunchPost=true;
+            mActivityLaunchPost = true;
             Handler handler = new Handler();
             handler.postDelayed(new Runnable() {
                 @Override
@@ -204,16 +205,15 @@ public class FadFlicksFragment extends Fragment
                     clearView(mSplashView);
                 }
             }, LAUNCH_WAIT);
-        }
-        else {
+        } else {
             mFlicksInitDetails = savedInstanceState.getParcelableArrayList(FLICKS_DETAILS_LIST_KEY);
             mAlertCancelledState = savedInstanceState.getBoolean(ALERT_CANCELLED_KEY);
-            if (savedInstanceState.getBoolean(REQUEST_POSTED_KEY)){
+            if (savedInstanceState.getBoolean(REQUEST_POSTED_KEY)) {
                 mSplashView.setVisibility(View.INVISIBLE);
             }
         }
 
-        mNoDataTextView = (TextView)rootView.findViewById(R.id.noDataTextView);
+        mNoDataTextView = (TextView) rootView.findViewById(R.id.noDataTextView);
         mFlicksGridImagesAdapter = new FlicksGridImagesAdapter(
                 getActivity(),
                 mFlicksInitDetails);
@@ -271,9 +271,9 @@ public class FadFlicksFragment extends Fragment
         return rootView;
     }
 
-    private void clearView(final RelativeLayout splash){
+    private void clearView(final RelativeLayout splash) {
 
-        if(splash!=null) {
+        if (splash != null) {
             ObjectAnimator animX = ObjectAnimator.ofFloat(splash, "alpha", 1, 0);
             animX.setDuration(700);
             animX.start();
@@ -281,13 +281,16 @@ public class FadFlicksFragment extends Fragment
                 @Override
                 public void onAnimationStart(Animator animation) {
                 }
+
                 @Override
                 public void onAnimationEnd(Animator animation) {
                     splash.setVisibility(View.INVISIBLE);
                 }
+
                 @Override
                 public void onAnimationCancel(Animator animation) {
                 }
+
                 @Override
                 public void onAnimationRepeat(Animator animation) {
                 }
@@ -301,8 +304,8 @@ public class FadFlicksFragment extends Fragment
         updateGridBasedOnDataConnectionState();
     }
 
-    private void updateGridBasedOnDataConnectionState(){
-        if (this.data_state==DATA_STATE_CONNECTED) {
+    private void updateGridBasedOnDataConnectionState() {
+        if (this.data_state == DATA_STATE_CONNECTED) {
             mFlicksGridImagesAdapter = new FlicksGridImagesAdapter(getActivity(), mFlicksInitDetails);
             mIsDoneDownloadingData = true;
             mFlicksGridView.invalidateViews();
@@ -318,20 +321,20 @@ public class FadFlicksFragment extends Fragment
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         inflater.inflate(R.menu.menu_fad_flicks_fragment, menu);
 
-        String opt =mSharedPref.getString(
+        String opt = mSharedPref.getString(
                 getString(R.string.pref_sort_order),
                 getString(R.string.pref_sort_default_value));
-
-        if (opt.equals(SORT_BY_POPULARITY)) {
-            menu.findItem(R.id.action_popularity).setEnabled(false);
-            menu.findItem(R.id.action_highest_rated).setEnabled(true);
-            mCurrentOrder = menu.findItem(R.id.action_popularity);
-        }
-        else {
-            menu.findItem(R.id.action_popularity).setEnabled(true);
-            menu.findItem(R.id.action_highest_rated).setEnabled(false);
-            mCurrentOrder = menu.findItem(R.id.action_highest_rated);
-        }
+        try {
+            if (opt.equals(SORT_BY_POPULARITY)) {
+                menu.findItem(R.id.action_popularity).setEnabled(false);
+                menu.findItem(R.id.action_highest_rated).setEnabled(true);
+                mCurrentOrder = menu.findItem(R.id.action_popularity);
+            } else {
+                menu.findItem(R.id.action_popularity).setEnabled(true);
+                menu.findItem(R.id.action_highest_rated).setEnabled(false);
+                mCurrentOrder = menu.findItem(R.id.action_highest_rated);
+            }
+        }catch(NullPointerException e){e.printStackTrace();}
     }
 
     @Override
@@ -339,48 +342,52 @@ public class FadFlicksFragment extends Fragment
 
         int id = item.getItemId();
         if (id == R.id.action_popularity) {
-            if (!mSharedPref.getString(getString(R.string.pref_sort_order),
-                    getString(R.string.pref_sort_default_value)).equals(SORT_BY_POPULARITY)) {
-                if (!mUtils.isDataAvaialable()) {
+            try {
+                if (!mSharedPref.getString(getString(R.string.pref_sort_order),
+                        getString(R.string.pref_sort_default_value)).equals(SORT_BY_POPULARITY)) {
+                    if (!mUtils.isDataAvaialable()) {
+                        updateFlicks(mSharedPref.getString(
+                                getString(R.string.pref_sort_order),
+                                getString(R.string.pref_sort_default_value)));
+                        return true;
+                    }
+                    mIsDoneDownloadingData = false;
+                    item.setEnabled(false);
+                    mCurrentOrder.setEnabled(true);
+                    mCurrentOrder = item;
+                    mSharedPrefEditor.putString(
+                            getString(R.string.pref_sort_order),
+                            SORT_BY_POPULARITY);
+                    mSharedPrefEditor.commit();
                     updateFlicks(mSharedPref.getString(
                             getString(R.string.pref_sort_order),
                             getString(R.string.pref_sort_default_value)));
-                    return true;
                 }
-                mIsDoneDownloadingData = false;
-                item.setEnabled(false);
-                mCurrentOrder.setEnabled(true);
-                mCurrentOrder = item;
-                mSharedPrefEditor.putString(
-                        getString(R.string.pref_sort_order),
-                        SORT_BY_POPULARITY);
-                mSharedPrefEditor.commit();
-                updateFlicks(mSharedPref.getString(
-                        getString(R.string.pref_sort_order),
-                        getString(R.string.pref_sort_default_value)));
-            }
+            }catch(NullPointerException e){e.printStackTrace();}
             return true;
         } else if (id == R.id.action_highest_rated) {
-            if (!mSharedPref.getString(getString(R.string.pref_sort_order),
-                    getString(R.string.pref_sort_default_value)).equals(SORT_BY_HIGHEST_RATED) ) {
-                if (!mUtils.isDataAvaialable()) {
+            try {
+                if (!mSharedPref.getString(getString(R.string.pref_sort_order),
+                        getString(R.string.pref_sort_default_value)).equals(SORT_BY_HIGHEST_RATED)) {
+                    if (!mUtils.isDataAvaialable()) {
+                        updateFlicks(mSharedPref.getString(
+                                getString(R.string.pref_sort_order),
+                                getString(R.string.pref_sort_default_value)));
+                        return true;
+                    }
+                    mIsDoneDownloadingData = false;
+                    item.setEnabled(false);
+                    mCurrentOrder.setEnabled(true);
+                    mCurrentOrder = item;
+                    mSharedPrefEditor.putString(
+                            getString(R.string.pref_sort_order),
+                            SORT_BY_HIGHEST_RATED);
+                    mSharedPrefEditor.commit();
                     updateFlicks(mSharedPref.getString(
                             getString(R.string.pref_sort_order),
                             getString(R.string.pref_sort_default_value)));
-                    return true;
                 }
-                mIsDoneDownloadingData = false;
-                item.setEnabled(false);
-                mCurrentOrder.setEnabled(true);
-                mCurrentOrder = item;
-                mSharedPrefEditor.putString(
-                        getString(R.string.pref_sort_order),
-                        SORT_BY_HIGHEST_RATED);
-                mSharedPrefEditor.commit();
-                updateFlicks(mSharedPref.getString(
-                        getString(R.string.pref_sort_order),
-                        getString(R.string.pref_sort_default_value)));
-            }
+            }catch(NullPointerException e){e.printStackTrace();}
             return true;
         } else if (id == R.id.refresh) {
             mIsDoneDownloadingData = false;

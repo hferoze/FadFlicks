@@ -11,15 +11,16 @@ public class AppConstants {
     public static final String POPULARITY = "populatiry";
     public static final String TITLE = "title";
 
-    public static final int GRID_IMAGE_SIZE_IDX=2;
-    public static final int DETAIL_POSTER_IMG_SIZE_IDX=3;
-    public static final int DETAIL_BACKDROP_IMG_SIZE_IDX=4;
+    public static final int GRID_IMAGE_SIZE_IDX = 2;
+    public static final int DETAIL_POSTER_IMG_SIZE_IDX = 3;
+    public static final int DETAIL_BACKDROP_IMG_SIZE_IDX = 4;
 
-    public static final int RATING_RANGE=5;
-    public static final int RATING_NORM=10;
+    public static final int RATING_RANGE = 5;
+    public static final int RATING_NORM = 10;
 
-    public static final int YEAR_STR_LENGTH=4;
-    public static final String [] REMOTE_IMAGE_SIZES = { "w92", "w154", "w185", "w342", "w500", "w780", "original"};;
-
-    private AppConstants(){}
+    public static final int YEAR_STR_LENGTH = 4;
+    public static final String[] REMOTE_IMAGE_SIZES = {"w92", "w154", "w185", "w342", "w500", "w780", "original"};
+    
+    private AppConstants() {
+    }
 }

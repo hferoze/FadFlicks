@@ -2,6 +2,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/detailFragment"
     android:name="com.hferoze.android.fadflicks.FlickDetailFragment"
-    tools:layout="@layout/fragment_flick_detail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" />
+    android:layout_height="match_parent"
+    tools:layout="@layout/fragment_flick_detail" />

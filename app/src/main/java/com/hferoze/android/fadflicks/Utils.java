@@ -8,8 +8,8 @@ public class Utils {
 
     private Context mContext;
 
-    public Utils ( Context ctx) {
-         mContext=ctx;
+    public Utils(Context ctx) {
+        mContext = ctx;
     }
 
     public boolean isDataAvaialable() {
@@ -18,9 +18,9 @@ public class Utils {
         NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
         boolean isDataConnected = activeNetwork != null &&
                 activeNetwork.isConnectedOrConnecting();
-        if(isDataConnected) {
-            if(activeNetwork.getType()==ConnectivityManager.TYPE_MOBILE
-                    || activeNetwork.getType()==ConnectivityManager.TYPE_WIFI) {
+        if (isDataConnected) {
+            if ((activeNetwork.getType() == ConnectivityManager.TYPE_MOBILE)
+                    || (activeNetwork.getType() == ConnectivityManager.TYPE_WIFI)) {
                 return true;
             } else {
                 return false;
@@ -31,9 +31,9 @@ public class Utils {
     }
 
     public String getYear(String date) {
-        if (!date.equals("null") &&
-                date.length()>=AppConstants.YEAR_STR_LENGTH && date!=null) {
-            if (date.substring(0,AppConstants.YEAR_STR_LENGTH).matches("^-?\\d+$"))
+        if (date != null && !date.equals("null") &&
+                date.length() >= AppConstants.YEAR_STR_LENGTH) {
+            if (date.substring(0, AppConstants.YEAR_STR_LENGTH).matches("^-?\\d+$"))
                 return date.substring(0, AppConstants.YEAR_STR_LENGTH);
         }
         return "";

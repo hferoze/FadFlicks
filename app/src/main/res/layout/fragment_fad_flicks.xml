@@ -2,59 +2,60 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/activity_background_color"
+    android:paddingBottom="@dimen/activity_vertical_margin_bottom"
     android:paddingLeft="@dimen/activity_horizontal_margin"
     android:paddingRight="@dimen/activity_horizontal_margin"
     android:paddingTop="@dimen/activity_vertical_margin_top"
-    android:paddingBottom="@dimen/activity_vertical_margin_bottom"
-    android:background="@color/activity_background_color"
     tools:context=".FadFlicksFragment">
 
     <TextView
         android:id="@+id/noDataTextView"
-        android:singleLine="true"
-        android:text="@string/no_data_detected_msg"
         style="@style/NormalTextStyle"
-        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/text_color_normal"
-        android:paddingLeft="@dimen/grid_text_padding"
         android:layout_alignParentLeft="true"
-        android:layout_centerVertical="true"/>
+        android:layout_centerVertical="true"
+        android:paddingLeft="@dimen/grid_text_padding"
+        android:singleLine="true"
+        android:text="@string/no_data_detected_msg"
+        android:textColor="@color/text_color_normal"
+        android:textStyle="bold" />
 
     <GridView
         android:id="@+id/main_grid_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:numColumns="auto_fit"
         android:columnWidth="@dimen/gridview_column_width"
-        android:horizontalSpacing="@dimen/gridview_horizontal_spacing"
-        android:verticalSpacing="@dimen/gridview_vertical_spacing"
         android:gravity="center"
-        android:stretchMode="columnWidth" >
+        android:horizontalSpacing="@dimen/gridview_horizontal_spacing"
+        android:numColumns="auto_fit"
+        android:stretchMode="columnWidth"
+        android:verticalSpacing="@dimen/gridview_vertical_spacing">
 
     </GridView>
 
     <ProgressBar
         android:id="@+id/mainProgressBar"
+        style="?android:attr/progressBarStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="?android:attr/progressBarStyle"
         android:layout_alignParentLeft="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
     <RelativeLayout
         android:id="@+id/splash_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@mipmap/splash_screen"
-        android:orientation="vertical"
-        android:clickable="true">
+        android:clickable="true"
+        android:orientation="vertical">
+
         <ProgressBar
             android:id="@+id/splashProgressBar"
+            style="?android:attr/progressBarStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            style="?android:attr/progressBarStyle"
             android:layout_centerInParent="true" />
 
     </RelativeLayout>

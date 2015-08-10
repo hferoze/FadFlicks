@@ -22,7 +22,7 @@ public class FlicksGridImagesAdapter extends BaseAdapter {
     private Context mContext;
 
     public FlicksGridImagesAdapter(Context c,
-                List<FlicksInitDetails> flicksInitDetailsArray) {
+                                   List<FlicksInitDetails> flicksInitDetailsArray) {
         mContext = c;
         mUtils = new Utils(mContext);
         mFlicksInitDetails = flicksInitDetailsArray;
@@ -32,6 +32,7 @@ public class FlicksGridImagesAdapter extends BaseAdapter {
     public int getCount() {
         return mFlicksInitDetails.size();
     }
+
     @Override
     public Object getItem(int arg0) {
         return mFlicksInitDetails.get(arg0);
@@ -47,7 +48,7 @@ public class FlicksGridImagesAdapter extends BaseAdapter {
 
         ViewHolder viewHolder;
 
-        if(convertView==null){
+        if (convertView == null) {
             LayoutInflater inflater = LayoutInflater.from(mContext);
             convertView = inflater.inflate(R.layout.grid_images_layout, parent, false);
 
@@ -57,7 +58,7 @@ public class FlicksGridImagesAdapter extends BaseAdapter {
             viewHolder.tvFlickReleasDate = (TextView) convertView.findViewById(R.id.gridview_releaseDateTextView);
             viewHolder.tvFlickTitle = (TextView) convertView.findViewById(R.id.gridview_flickTitleTextView);
             convertView.setTag(viewHolder);
-        }else{
+        } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
@@ -68,12 +69,12 @@ public class FlicksGridImagesAdapter extends BaseAdapter {
 
         viewHolder.tvFlickTitle.setText(flicks.getTitle());
         viewHolder.tvFlickTitle.setSelected(true);
-        viewHolder.rbFlickRating.setRating((float) (flicks.getVoteAverage() * AppConstants.RATING_RANGE) / AppConstants.RATING_NORM);
+        viewHolder.rbFlickRating.setRating((flicks.getVoteAverage() * AppConstants.RATING_RANGE) / AppConstants.RATING_NORM);
         viewHolder.tvFlickReleasDate.setText(mUtils.getYear(flicks.getReleaseDate()));
         return convertView;
     }
 
-    private String buildURI( String img_size, String img_path) {
+    private String buildURI(String img_size, String img_path) {
         Uri.Builder builder = new Uri.Builder();
         builder.scheme("http")
                 .authority("image.tmdb.org")
