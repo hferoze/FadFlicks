@@ -118,13 +118,13 @@ public class FadFlicksFragment extends Fragment
         intent.setComponent(new ComponentName(
                 DATA_SETTINGS_PKG,
                 DATA_SETTINGS_CLASS));
-        if (isIntentSafe(intent))
+        if (mUtils.isIntentSafe(intent))
             startActivity(intent);
     }
 
     private void launchWifiSettings() {
         Intent intent = new Intent(android.provider.Settings.ACTION_WIFI_SETTINGS);
-        if (isIntentSafe(intent))
+        if (mUtils.isIntentSafe(intent))
             startActivity(intent);
     }
 
@@ -133,13 +133,6 @@ public class FadFlicksFragment extends Fragment
         if (mAlert != null && mAlert.isShowing()) {
             mAlert.dismiss();
         }
-    }
-
-    private boolean isIntentSafe(Intent intent){
-        //From developer.android.com
-        PackageManager packageManager = mContext.getPackageManager();
-        List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
-        return activities.size() > 0;
     }
 
     @Override

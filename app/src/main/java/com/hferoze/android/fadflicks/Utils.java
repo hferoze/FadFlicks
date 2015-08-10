@@ -1,8 +1,13 @@
 package com.hferoze.android.fadflicks;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.content.pm.ResolveInfo;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import java.util.List;
 
 public class Utils {
 
@@ -38,4 +43,12 @@ public class Utils {
         }
         return "";
     }
+
+    public boolean isIntentSafe(Intent intent){
+        //From developer.android.com
+        PackageManager packageManager = mContext.getPackageManager();
+        List<ResolveInfo> activities = packageManager.queryIntentActivities(intent, 0);
+        return activities.size() > 0;
+    }
+
 }
