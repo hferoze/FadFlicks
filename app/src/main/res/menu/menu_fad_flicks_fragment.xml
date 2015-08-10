@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools" tools:context=".FadFlicksFragment">
+
+    <item android:id="@+id/refresh"
+        android:title="@string/pref_refresh"
+        android:icon="@drawable/custom_refresh_menu_btn"
+        app:showAsAction="always" />
+
+    <item android:id="@+id/action_popularity"
+        android:title="@string/pref_sort_popularity"
+        app:showAsAction="never" />
+
+    <item android:id="@+id/action_highest_rated"
+        android:title="@string/pref_sort_highest_rated"
+        app:showAsAction="never" />
+
+</menu>

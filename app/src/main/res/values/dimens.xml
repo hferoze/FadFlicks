@@ -1,0 +1,27 @@
+<resources>
+    <dimen name="activity_horizontal_margin">2dp</dimen>
+    <dimen name="activity_vertical_margin_top">2dp</dimen>
+    <dimen name="activity_vertical_margin_bottom">2dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+
+    <dimen name="gridview_horizontal_spacing">5dp</dimen>
+    <dimen name="gridview_vertical_spacing">5dp</dimen>
+    <dimen name="gridview_column_width">120dp</dimen>
+    <dimen name="grid_poster_height">240dp</dimen>
+    <dimen name="grid_poster_height_landscape">220dp</dimen>
+    <dimen name="gridview_column_width_landscape">120dp</dimen>
+    <dimen name="grid_text_size">14sp</dimen>
+    <dimen name="grid_text_padding">5dp</dimen>
+    <dimen name="grid_card_corner_radius">6dp</dimen>
+    <dimen name="grid_card_corner_elavation">10dp</dimen>
+
+    <dimen name="detailview_poster_height">200dp</dimen>
+    <dimen name="detailview_poster_width">140dp</dimen>
+    <dimen name="detailview_poster_card_corner_radius">4dp</dimen>
+    <dimen name="detailview_poster_card_elavation">5dp</dimen>
+    <dimen name="detailview_poster_height_land">240dp</dimen>
+    <dimen name="detailview_poster_width_land">180dp</dimen>
+
+    <dimen name="no_data_background_text_size">15dp</dimen>
+
+</resources>

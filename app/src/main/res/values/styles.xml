@@ -1,0 +1,39 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.DarkActionBar">
+        <item name="android:textSize">12sp</item>
+        <item name="android:shadowColor">@color/text_color_dark</item>
+        <item name="android:shadowDx">@integer/text_shadow_dx</item>
+        <item name="android:shadowDy">@integer/text_shadow_dy</item>
+        <item name="android:shadowRadius">@integer/text_shadow_radius</item>
+        <item name="dropDownListViewStyle">@style/CustomMenuStyle</item>
+        <item name="android:windowActionBarOverlay">true</item>
+        <item name="android:itemTextAppearance">@style/CustomActionBarTitleText</item>
+        <item name="android:actionOverflowButtonStyle">@style/CustomActionButtonOverflow</item>
+    </style>
+
+    <style name="CustomMenuStyle" parent="@android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:divider">@color/menu_item_divider</item>
+        <item name="android:dividerHeight">1dp</item>
+        <item name="android:background">@drawable/menu_background</item>
+        <item name="android:listSelector">@drawable/custom_menu</item>
+
+    </style>
+
+    <style name="CustomActionBarTitleText"
+        parent="@android:style/TextAppearance.Widget.IconMenu.Item">
+        <item name="android:textStyle">bold</item>
+        <item name="android:shadowColor">@color/text_color_dark</item>
+        <item name="android:shadowDx">@integer/text_shadow_dx</item>
+        <item name="android:shadowDy">@integer/text_shadow_dy</item>
+        <item name="android:shadowRadius">@integer/text_shadow_radius</item>
+        <item name="android:textColor">@drawable/text_color</item>
+    </style>
+
+    <style name="CustomActionButtonOverflow"
+        parent="Widget.AppCompat.Light.ActionButton.Overflow">
+        <item name="android:src">@drawable/custom_sort_menu_btn</item>
+    </style>
+
+</resources>
